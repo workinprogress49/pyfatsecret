@@ -99,6 +99,19 @@ class Fatsecret:
         # Return session token for app specific caching
         return session_token
 
+	def profile_request_script_session_key(self,cookie=True):
+		'''
+		Creates a new session for FatSecret JavaScript API users and returns the script session key 
+		for a nominated user. Either the user_id or the oauth_token can be used to nominate the user.
+		'''
+		params = {'method': 'profile.request_script_session_key', 'format': 'json'}
+		
+		if cookie==True:
+			params['cookie'] = cookie
+
+		response = self.session.get(self.api_url, params=params)
+		return self.valid_response(response)    
+    
     def close(self):
         """Session cleanup"""
         self.session.close()
